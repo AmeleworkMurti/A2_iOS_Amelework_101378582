@@ -15,3 +15,26 @@ struct AddProductView: View {
     @State private var desc = ""
     @State private var price = ""
     @State private var provider = ""
+    var body: some View {
+            VStack {
+                TextField("Product Name", text: $name)
+                    .textFieldStyle(.roundedBorder)
+
+                TextField("Description", text: $desc)
+                    .textFieldStyle(.roundedBorder)
+
+                TextField("Price", text: $price)
+                    .textFieldStyle(.roundedBorder)
+
+                TextField("Provider", text: $provider)
+                    .textFieldStyle(.roundedBorder)
+
+                Button("Save Product") {
+                    addProduct()
+                    dismiss()
+                }
+                .padding()
+            }
+            .padding()
+            .navigationTitle("Add Product")
+        }
