@@ -12,75 +12,64 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
+        entity: Product.entity(),
+        sortDescriptors: []
+    ) private var products: FetchedResults<Product>
+
+    @State private var currentIndex = 0
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+        VStack {
+            if products.count > 0 {
+                let product = products[currentIndex]
+
+                Text(product.name ?? "No Name")
+                    .font(.title)
+
+                Text(product.desc ?? "No Description")
+
+                Text("Price: \(product.price)")
+                Text("Provider: \(product.provider ?? "")")
+
+                HStack {
+                    Button("Previous") {
+                        if currentIndex > 0 {
+                            currentIndex -= 1
+                        }
+                    }
+
+                    Button("Next") {
+                        if currentIndex < products.count - 1 {
+                            currentIndex += 1
+                        }
                     }
                 }
-                .onDelete(perform: deleteItems)
+            } else {
+                Text("No Products Available")
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-            Text("Select an item")
         }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        .padding()
+        .onAppear {
+            if products.isEmpty {
+                addSampleData()
             }
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
+    private func addSampleData() {
+        for i in 1...10 {
+            let newProduct = Product(context: viewContext)
+            newProduct.productID = Int64(i)
+            newProduct.name = "Product \(i)"
+            newProduct.desc = "Description \(i)"
+            newProduct.price = Double(i) * 10.0
+            newProduct.provider = "Provider \(i)"
+        }
 
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+        do {
+            try viewContext.save()
+        } catch {
+            print("Error saving: \(error)")
         }
     }
-}
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
-
-#Preview {
-    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
