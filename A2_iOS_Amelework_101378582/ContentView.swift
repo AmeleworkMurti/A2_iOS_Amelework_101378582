@@ -19,33 +19,38 @@ struct ContentView: View {
     @State private var currentIndex = 0
 
     var body: some View {
-        VStack {
-            if products.count > 0 {
-                let product = products[currentIndex]
+        NavigationView {
+            VStack {
+                if products.count > 0 {
+                    let product = products[currentIndex]
 
-                Text(product.name ?? "No Name")
-                    .font(.title)
+                    Text(product.name ?? "")
+                        .font(.title)
 
-                Text(product.desc ?? "No Description")
+                    Text(product.desc ?? "")
 
-                Text("Price: \(product.price)")
-                Text("Provider: \(product.provider ?? "")")
+                    Text("Price: \(product.price)")
+                    Text("Provider: \(product.provider ?? "")")
 
-                HStack {
-                    Button("Previous") {
-                        if currentIndex > 0 {
-                            currentIndex -= 1
+                    HStack {
+                        Button("Previous") {
+                            if currentIndex > 0 {
+                                currentIndex -= 1
+                            }
                         }
-                    }
 
-                    Button("Next") {
-                        if currentIndex < products.count - 1 {
-                            currentIndex += 1
+                        Button("Next") {
+                            if currentIndex < products.count - 1 {
+                                currentIndex += 1
+                            }
                         }
                     }
                 }
-            } else {
-                Text("No Products Available")
+
+                NavigationLink("View All Products") {
+                    ProductListView()
+                }
+                .padding()
             }
         }
         .padding()
