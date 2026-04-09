@@ -30,4 +30,16 @@ struct ProductListView: View {
         }
         .navigationTitle("All Products")
     }
+    
+    var filteredProducts: [Product] {
+        if searchText.isEmpty {
+            return Array(products)
+        } else {
+            return products.filter {
+                ($0.name ?? "").lowercased().contains(searchText.lowercased()) ||
+                ($0.desc ?? "").lowercased().contains(searchText.lowercased())
+            }
+        }
+    }
+    
 }
