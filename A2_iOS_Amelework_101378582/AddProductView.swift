@@ -38,3 +38,19 @@ struct AddProductView: View {
             .padding()
             .navigationTitle("Add Product")
         }
+   
+    private func addProduct() {
+            let newProduct = Product(context: viewContext)
+            newProduct.productID = Int64(Date().timeIntervalSince1970)
+            newProduct.name = name
+            newProduct.desc = desc
+            newProduct.price = Double(price) ?? 0.0
+            newProduct.provider = provider
+
+            do {
+                try viewContext.save()
+            } catch {
+                print("Error saving: \(error)")
+            }
+        }
+    }
