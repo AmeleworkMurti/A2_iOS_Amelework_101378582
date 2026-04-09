@@ -50,7 +50,15 @@ struct ContentView: View {
                 NavigationLink("View All Products") {
                     ProductListView()
                 }
+                
+                NavigationLink("Add Product") {
+                    AddProductView()
+                }
                 .padding()
+                
+                
+                
+            
             }
         }
         .padding()

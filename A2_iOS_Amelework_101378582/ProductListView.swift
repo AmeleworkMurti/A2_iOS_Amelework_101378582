@@ -8,6 +8,7 @@ import SwiftUI
 import CoreData
 
 struct ProductListView: View {
+    @State private var searchText = ""
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
@@ -17,7 +18,7 @@ struct ProductListView: View {
 
     var body: some View {
         List {
-            ForEach(products) { product in
+            ForEach(filteredProducts) { product in
                 VStack(alignment: .leading) {
                     Text(product.name ?? "")
                         .font(.headline)
