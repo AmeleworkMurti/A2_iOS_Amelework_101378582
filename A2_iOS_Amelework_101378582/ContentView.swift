@@ -26,7 +26,7 @@ struct ContentView: View {
                 if products.count > 0 {
                     let product = products[currentIndex]
                     
-                    // PRODUCT CARD
+                    // product card
                     VStack(spacing: 10) {
                         Text(product.name ?? "")
                         .font(.title)
@@ -64,7 +64,7 @@ struct ContentView: View {
                         .foregroundColor(.gray)
                 }
                 
-                // Navigation Links
+                // main action buttons
                 VStack(spacing: 15) {
                     NavigationLink("View All Products") {
                         ProductListView()
@@ -74,6 +74,8 @@ struct ContentView: View {
                         AddProductView()
                     }
                 }
+                .frame(maxWidth: .infinity)
+                .tint(.blue)
                 .buttonStyle(.borderedProminent)
                 
                 Spacer()
@@ -89,7 +91,7 @@ struct ContentView: View {
     }
     
     private func addSampleData() {
-        for i in 1...10 {
+        for i in 1...5 {
             let newProduct = Product(context: viewContext)
             newProduct.productID = Int64(i)
             newProduct.name = "Product \(i)"
