@@ -17,32 +17,56 @@ struct AddProductView: View {
     @State private var price = ""
     @State private var provider = ""
 
+    
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: 20) {
 
-            TextField("Product Name", text: $name)
-                .textFieldStyle(.roundedBorder)
+            Text("Add Product")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .padding(.top, 20)
 
-            TextField("Description", text: $desc)
-                .textFieldStyle(.roundedBorder)
+            VStack(spacing: 15) {
 
-            TextField("Price", text: $price)
-                .textFieldStyle(.roundedBorder)
-                .keyboardType(.decimalPad)
+                TextField("Product Name", text: $name)
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(10)
 
-            TextField("Provider", text: $provider)
-                .textFieldStyle(.roundedBorder)
+                TextField("Description", text: $desc)
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(10)
+
+                TextField("Price", text: $price)
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(10)
+                    .keyboardType(.decimalPad)
+
+                TextField("Provider", text: $provider)
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(10)
+            }
 
             Button("Save Product") {
                 addProduct()
                 dismiss()
             }
-            .buttonStyle(.borderedProminent)
-            .padding(.top)
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(12)
+            .padding(.top, 10)
+
+            Spacer()
         }
         .padding()
-        .navigationTitle("Add Product")
+        .navigationBarTitleDisplayMode(.inline)
     }
+  
 
     
     private func addProduct() {
