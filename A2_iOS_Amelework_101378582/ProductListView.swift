@@ -28,6 +28,7 @@ struct ProductListView: View {
                 }
             }
         }
+        .searchable(text:$searchText, prompt: "Search products")
         .navigationTitle("All Products")
     }
     
