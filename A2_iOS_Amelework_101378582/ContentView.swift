@@ -61,8 +61,15 @@ struct ContentView: View {
                     .buttonStyle(.borderedProminent)
                     .tint(.blue)
                 } else {
-                    Text("No Products Available")
-                        .foregroundColor(.gray)
+                    VStack(spacing: 10) {
+                        Text("No Products Yet")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+
+                        Text("Start by adding your first product")
+                            .foregroundColor(.gray)
+                    }
+                    .padding()
                 }
                 
                 // main action buttons
