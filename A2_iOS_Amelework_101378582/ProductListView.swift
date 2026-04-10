@@ -10,19 +10,19 @@ import CoreData
 struct ProductListView: View {
     @State private var searchText = ""
     @Environment(\.managedObjectContext) private var viewContext
-
+    
     @FetchRequest(
         entity: Product.entity(),
         sortDescriptors: []
     ) private var products: FetchedResults<Product>
-
+    
     var body: some View {
         List {
             ForEach(filteredProducts) { product in
                 VStack(alignment: .leading, spacing: 5) {
                     Text(product.name ?? "")
                         .font(.headline)
-
+                    
                     Text(product.desc ?? "")
                         .font(.subheadline)
                         .foregroundColor(.gray)
@@ -33,16 +33,16 @@ struct ProductListView: View {
         .listStyle(.insetGrouped)
         .searchable(text: $searchText, prompt: "Search products")
         .navigationTitle("All Products")
-    
+        
         var filteredProducts: [Product] {
-        if searchText.isEmpty {
-            return Array(products)
-        } else {
-            return products.filter {
-                ($0.name ?? "").lowercased().contains(searchText.lowercased()) ||
-                ($0.desc ?? "").lowercased().contains(searchText.lowercased())
+            if searchText.isEmpty {
+                return Array(products)
+            } else {
+                return products.filter {
+                    ($0.name ?? "").lowercased().contains(searchText.lowercased()) ||
+                    ($0.desc ?? "").lowercased().contains(searchText.lowercased())
+                }
             }
         }
-    }
-    
-}
+        
+    }}
