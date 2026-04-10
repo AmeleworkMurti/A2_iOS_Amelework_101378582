@@ -42,6 +42,7 @@ struct ContentView: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity) .background(Color.blue.opacity(0.08)) .cornerRadius(20) .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+                    .animation(.easeInOut, value: currentIndex)
                    
                     // Navigation Buttons
                     HStack(spacing: 20) {
