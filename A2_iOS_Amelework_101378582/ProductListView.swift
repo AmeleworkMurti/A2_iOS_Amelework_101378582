@@ -13,7 +13,7 @@ struct ProductListView: View {
     
     @FetchRequest(
         entity: Product.entity(),
-        sortDescriptors: []
+        sortDescriptors: [NSSortDescriptor(keyPath: \Product.productID, ascending: true)]
     ) private var products: FetchedResults<Product>
     
     var body: some View {
