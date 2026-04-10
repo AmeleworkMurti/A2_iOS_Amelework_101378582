@@ -58,6 +58,7 @@ struct ContentView: View {
                         }
                     }
                     .buttonStyle(.borderedProminent)
+                    .tint(.blue)
                 } else {
                     Text("No Products Available")
                         .foregroundColor(.gray)
