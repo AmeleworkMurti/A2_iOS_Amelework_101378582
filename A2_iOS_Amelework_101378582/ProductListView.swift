@@ -19,20 +19,22 @@ struct ProductListView: View {
     var body: some View {
         List {
             ForEach(filteredProducts) { product in
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 5) {
                     Text(product.name ?? "")
                         .font(.headline)
 
                     Text(product.desc ?? "")
                         .font(.subheadline)
+                        .foregroundColor(.gray)
                 }
+                .padding(.vertical, 5)
             }
         }
-        .searchable(text:$searchText, prompt: "Search products")
+        .listStyle(.insetGrouped)
+        .searchable(text: $searchText, prompt: "Search products")
         .navigationTitle("All Products")
-    }
     
-    var filteredProducts: [Product] {
+        var filteredProducts: [Product] {
         if searchText.isEmpty {
             return Array(products)
         } else {

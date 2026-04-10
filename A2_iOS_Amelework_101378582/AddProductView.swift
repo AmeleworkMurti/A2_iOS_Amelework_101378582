@@ -16,29 +16,21 @@ struct AddProductView: View {
     @State private var price = ""
     @State private var provider = ""
     var body: some View {
-            VStack {
-                TextField("Product Name", text: $name)
-                    .textFieldStyle(.roundedBorder)
+        VStack(spacing: 15) {
+            TextField("Product Name", text: $name)
+            TextField("Description", text: $desc)
+            TextField("Price", text: $price)
+            TextField("Provider", text: $provider)
 
-                TextField("Description", text: $desc)
-                    .textFieldStyle(.roundedBorder)
-
-                TextField("Price", text: $price)
-                    .textFieldStyle(.roundedBorder)
-
-                TextField("Provider", text: $provider)
-                    .textFieldStyle(.roundedBorder)
-
-                Button("Save Product") {
-                    addProduct()
-                    dismiss()
-                }
-                .padding()
+            Button("Save Product") {
+                addProduct()
+                dismiss()
             }
-            .padding()
-            .navigationTitle("Add Product")
+            .buttonStyle(.borderedProminent)
         }
-   
+        .padding()
+        .navigationTitle("Add Product")
+
     private func addProduct() {
             let newProduct = Product(context: viewContext)
             newProduct.productID = Int64(Date().timeIntervalSince1970)
