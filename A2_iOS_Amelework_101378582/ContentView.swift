@@ -26,27 +26,23 @@ struct ContentView: View {
                 if products.count > 0 {
                     let product = products[currentIndex]
                     
-                    // Product Card
+                    // PRODUCT CARD
                     VStack(spacing: 10) {
                         Text(product.name ?? "")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.blue)
                         
-                        Text(product.desc ?? "")
-                            .foregroundColor(.gray)
+                    Text(product.desc ?? "")
+                        .foregroundColor(.gray)
                         
-                        Text("Price: $\(product.price, specifier: "%.2f")")
-                            .font(.headline)
+                    Text("Price: $\(product.price, specifier: "%.2f")") .font(.headline)
                         
-                        Text("Provider: \(product.provider ?? "")")
-                            .foregroundColor(.secondary)
+                    Text("Provider: \(product.provider ?? "")") .foregroundColor(.secondary)
                     }
                     .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color(.systemGray6))
-                    .cornerRadius(15)
-                    .shadow(radius: 5)
-                    
+                    .frame(maxWidth: .infinity) .background(Color.blue.opacity(0.08)) .cornerRadius(20) .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+                   
                     // Navigation Buttons
                     HStack(spacing: 20) {
                         Button("Previous") {
